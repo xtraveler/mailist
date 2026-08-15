@@ -1,0 +1,47 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mailist",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./public"
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "vars": {
+    "APP_NAME": "Mailist",
+    "FROM_NAME": "Mailist",
+    "FROM_EMAIL": "onboarding@resend.dev"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "mailist",
+      "migrations_dir": "migrations","database_id": "42b1aae0-fed0-4ebc-90c8-c4a01e4623de"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "MAIL_QUEUE",
+        "queue": "mailist-sends"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "mailist-sends",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_concurrency": 2,
+        "max_retries": 8,
+        "retry_delay": 15
+      }
+    ]
+  },
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  }
+}

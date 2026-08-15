@@ -1,0 +1,11 @@
+# Resend の API キー（必須） https://resend.com/api-keys
+RESEND_API_KEY=re_xxxxxxxxx
+
+# 管理画面パスワード（必須）
+ADMIN_PASSWORD=change-me
+
+# 任意。未設定なら ADMIN_PASSWORD から導出
+SESSION_SECRET=
+
+# 任意。Resend Webhook の Signing Secret
+RESEND_WEBHOOK_SECRET=
